@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Auto Image Silder</title>
+        <link href="css/slider.css" rel="stylesheet" type="text/css" />
+        <script src="js/slider.js" type="text/javascript"></script>
+    </head>
+    <style>
+        body {
+            height: 3000px;
+        }
+        .nav {
+            /* 粘性定位 */
+            position: sticky;
+            top: 0;
+            width: 800px;
+            height: 50px;
+            background-color: pink;
+            margin: 120px auto;
+        }
+
+    </style>
+    <body>
+        <div class="nav">我是导航栏</div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+        <script>
+            const a=9007199254740992;
+            const b=5367
+           function handleBigNum(a,b){
+                //将数字转化为字符串
+                const stringA = String(a);
+                const stringB = String(b);
+                
+                //将字符串拆分成数组
+                const arrA = stringA.split('').map(item=>+item)
+                const arrB = stringB.split('').map(item=>+item)
+                //计算两个数字的位数差
+                const distance = arrA.length - arrB.length;
+                
+                //根据位数差补齐数组
+                const addArr = new Array(+distance).fill(0);
+                const temArr = distance>0?arrB:arrA;
+                Array.prototype.unshift.apply(temArr,addArr);
+                console.log(arrA,arrB)
+                
+                const length = arrA.length
+                const res = []
+                let temp;
+                let carry = 0;
+                
+                //逐项计算
+                for(let i = length-1;i>=0;i--){
+                    temp = arrA[i]+arrB[i]+carry;
+                    res.unshift(temp%10)
+                    carry = temp/10
+                }
+                const result = []
+                for(let i = 0;i<res.length;i++ ){
+                    result.unshift(Math.floor(res[i]))
+                }
+                return result.join('')
+            }
+            console.log(handleBigNum(a,b))
+            
+            Array.prototype.bubbleSort = function () {
+                for(let j = 0;j<this.length;j++){
+                    for(let i = 0;i<this.length-1-j;i++){
+                        if(this[i]>this[i+1]){
+                            const temp = this[i]
+                            this[i]=this[i+1]
+                            this[i+1]=temp
+                        }
+                    }
+                }
+            }
+            let arr = [4,1,2,5,0]
+            arr.bubbleSort()
+            console.log(arr)
+        </script>
+    </body>
+</html>
